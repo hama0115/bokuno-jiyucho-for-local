@@ -57,7 +57,7 @@
         </div>
       </div>      
       
-      //プロフィール欄を表示
+      <!-- プロフィール欄を表示 -->
       <?php get_template_part('template-parts/profile-section'); ?>
     </main>
 
