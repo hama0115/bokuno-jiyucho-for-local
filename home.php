@@ -3,16 +3,22 @@
     <main class="main">    
       <div class="content-wrapper">
         <div class="content">
-          <h1 class="page-title">すべての投稿</h1>
+          <h1 class="page-title">最新の投稿</h1>
           <div class="article-list-wrapper">
             <ul class="article-list">
-              <?php if( have_posts() ): while( have_posts() ): the_post(); ?>
+              <?php //最新の投稿を取得するサブループ開始
+              $args = array(
+                'post_type' => 'post',
+                'posts_per_page' => 6,
+              );
+              $new_query = new WP_Query($args);
+              if($new_query->have_posts()): while($new_query->have_posts()): $new_query->the_post(); ?>    
 
               <li>
                 <a href="<?php the_permalink(); ?>" >
                 
                 <div class="thumbnail-area">
-                  <?php
+                  <?php //アイキャッチ画像があれば表示
                   if(has_post_thumbnail()):
                     the_post_thumbnail('full');
 
@@ -40,33 +46,19 @@
                 </a>
               </li>
 
-              <?php endwhile; else: ?>
-
+              <?php endwhile;
+              wp_reset_postdata();
+              else: ?>
+                <p>投稿はありません。</p>
               <?php endif; ?>
             </ul>
           </div>
-          <?php //ページネーション
-            $args = array(
-              'mid_size' => 1, //初期値と同じ
-              'prev_text' => '←',
-              'next_text' => '→'
-            );
-            the_posts_pagination($args);
-          ?>
-
-          <section class="profile-area">
-             <h2 class="profile-top">プロフィール</h2>
-             <div class="profile-img-area">
-               <img src="<?php echo get_template_directory_uri(); ?>/img/sample-thumbnail.jpg" alt="プロフィール画像">
-               <div class="profile-name-wrapper">
-                 <p class="profile-name">暖房冷房</p>
-               </div>
-             </div>
-             <p class="profile-description">1985年あたりに生まれ、武庫川大学歴史学科を卒業。いくらでも寝ることができます。</p>
-           </section>
-          
+          <div class="btn-area"><button class="page-btn"><a href="<?php echo esc_url(home_url('/latest-posts'))?>">もっとみる</a></button></div>
         </div>
-      </div>  
+      </div>      
+      
+      //プロフィール欄を表示
+      <?php get_template_part('template-parts/profile-section'); ?>
     </main>
 
 <?php get_footer(); ?>
