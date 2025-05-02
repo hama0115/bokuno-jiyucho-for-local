@@ -53,7 +53,6 @@
               <?php endif; ?>
             </ul>
           </div>
-          <div class="btn-area"><button class="page-btn"><a href="<?php echo esc_url(home_url('/latest-posts'))?>">もっとみる</a></button></div>
         </div>
       </div>      
       
