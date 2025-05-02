@@ -783,6 +783,10 @@ a .nav-title,
      flex-shrink: 0;
      width: calc((100% - 100px) / 3);
    }
+   .thumbnail-area img {
+    height: 150px;
+    object-fit: cover;
+  }
  
    /*---- 個別投稿ページ --*/
    .article-content {
